@@ -30,7 +30,7 @@ const render = () => {
   }
   allTasks.sort((a, b) => a.isCheck - b.isCheck);
   allTasks.map((item, index) => {
-    let {text, isCheck} = item;
+    const { text, isCheck }  = item;
     const container = document.createElement('div')
     container.id = `task-${index}`;
     container.className = 'task-container';
