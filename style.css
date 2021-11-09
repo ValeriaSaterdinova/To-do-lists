@@ -1,7 +1,7 @@
 body {
     background-image: url(study.jpg);
     background-repeat: no-repeat;
-    background-size: 120%;
+    background-size: cover;
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
@@ -19,6 +19,7 @@ body {
     align-items: center;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 30px 30px rgba(0,0,0,0.22);
 }
+
 h1 {
     font-size: 2.4em;
 }
@@ -56,6 +57,7 @@ h1 {
     margin-bottom: 1.2em;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 30px 30px rgba(0,0,0,0.22);
 }
+
 .task-container:hover {
     box-shadow: 0 14px 28px rgba(241, 172, 36, 0.4), 0 30px 30px rgba(241, 172, 36, 0.4);
 }
@@ -70,12 +72,14 @@ h1 {
     cursor: pointer;
     box-shadow: 0 0 0 2px #000000 inset;
 }
+
 .task-container input[type="text"] {
     height: 2.5em;
     width: 15em;
     font-size: 1em;
-    margin-left: 1em;
+    margin-left: 8px;
 }
+
 .text-task {
     margin-left: 8px;
     margin-right: 8px;
@@ -101,64 +105,52 @@ img {
     align-items: center;
 }
 
-
-@media (max-device-width: 1200px) {
-    body {
-        background-size: 140%;
-    }
-}
-
-@media (max-device-width: 800px) {
-    body {
-        background-size: 200%;
-    }
-}
-
 @media (max-device-width: 500px) {
-    body {
-        background-size: 410%;
-    }
+  .main-elements-control {
+    width: 57em;
+    height: 22em;
+  }
     
-    .main-elements-control {
-        width: 57em;
-        height: 22em;
-    }
+  h1 {
+    font-size: 6em;
+  }
+
+  .main-elements-control input {
+    height: 2em;
+    width: 13em;
+    font-size: 2.3em;
+  }  
+  
+  .main-elements-control button {
+    height: 2.5em;
+    font-size: 2em;
+    width: 4em;
+  }
+
+  .task-container {
+    height: 7em;
+  }
+
+  .task-container input[type="checkbox"] {
+    height: 6em;
+    width: 6em;
+    background-color: black;
+  }   
+  
+  .text-task {
+    font-size: 3.5em;
+    color: black;
+  }
     
-    h1 {
-        font-size: 6em;
-    }
-    .main-elements-control input {
-        height: 2em;
-        width: 13em;
-        font-size: 2.3em;
-    }  
-    .main-elements-control button {
-        height: 2.5em;
-        font-size: 2em;
-        width: 4em;
-    }
-    .task-container {
-        height: 7em;
-    }
-    .task-container input[type="checkbox"] {
-        height: 6em;
-        width: 6em;
-        background-color: black;
-    }   
-    .text-task {
-        font-size: 3.5em;
-        color: black;
-    }
+  .done-text {
+    color: rgba(0, 0, 0, 0.3);
+    text-decoration: line-through;
+    font-size: 3.5em;
+  }
     
-    .done-text {
-        color: rgba(0, 0, 0, 0.3);
-        text-decoration: line-through;
-        font-size: 3.5em;
-    }
-    
-    img {
-        margin-left: 35px;
-        height: 7em;
-        width: 7em;
-    }
+  img {
+    margin-left: 35px;
+    height: 7em;
+    width: 7em;
+  }
 }
