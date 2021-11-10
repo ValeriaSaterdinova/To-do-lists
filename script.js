@@ -2,13 +2,13 @@ let allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 let valueInput = '';
 let input = null;
 
-window.onload = async function init() {
+window.onload = init = async() => {
   input = document.getElementById('add-task');
   input.addEventListener('change', updateValue);
   const resp = await fetch('http://localhost:8000/allTasks', {
     method: 'GET'
   });
-  let result = await resp.json();
+  const result = await resp.json();
   allTasks = result.data;
   render();
 }
@@ -28,7 +28,7 @@ const onClickButton = async () => {
       isCheck: false
     })
   });
-  let result = await resp.json();
+  const result = await resp.json();
   allTasks = result.data;
   localStorage.setItem('tasks', JSON.stringify(allTasks));
   valueInput = '';
@@ -86,7 +86,7 @@ const render = () => {
                 text: inputTask.value
               })
             });
-            let result = await resp.json();
+            const result = await resp.json();
             allTasks = result.data;
             localStorage.setItem('tasks', JSON.stringify(allTasks));
             render();
@@ -114,7 +114,7 @@ const deleteValue = async (index) => {
     method: 'DELETE'
   });
   
-  let result = await resp.json();
+  const result = await resp.json();
   allTasks = result.data;
   localStorage.setItem('tasks', JSON.stringify(allTasks));
   render();
