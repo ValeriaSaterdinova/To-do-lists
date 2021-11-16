@@ -2,7 +2,7 @@ let allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 let valueInput = '';
 let input = null;
 
-window.onload = init = async() => {
+window.onload = init = async () => {
   input = document.getElementById('add-task');
   input.addEventListener('change', updateValue);
   const resp = await fetch('http://localhost:8000/allTasks', {
@@ -10,13 +10,11 @@ window.onload = init = async() => {
   });
   const result = await resp.json();
   allTasks = result.data;
+  localStorage.setItem('tasks', JSON.stringify(allTasks));
   render();
 }
+
 const onClickButton = async () => {
-  allTasks.push({
-    text: valueInput,
-    isCheck: false
-  });
   const resp = await fetch('http://localhost:8000/createTask', {
     method: 'POST',
     headers: {
@@ -29,12 +27,15 @@ const onClickButton = async () => {
     })
   });
   const result = await resp.json();
-  allTasks = result.data;
+  allTasks.push(result.data);
   localStorage.setItem('tasks', JSON.stringify(allTasks));
   valueInput = '';
   input.value = '';
-  render();
-}
+  render();  
+  if(!result.data) {
+    alert(`An error has occurred!`)
+  };
+};
 
 const updateValue = (event) => {
   valueInput = event.target.value;
@@ -63,7 +64,7 @@ const render = () => {
     text1.className = isCheck ? 'text-task done-text' : 'text-task';
     container.appendChild(text1);
     const imageEdit = document.createElement('img');
-    imageEdit.src = "Редактирование.svg";
+    imageEdit.src = "edit.svg";
     container.appendChild(imageEdit);
     allTasks.forEach(object => {
       if (text1.className === 'text-task') {
@@ -80,14 +81,8 @@ const render = () => {
                 'Content-Type': 'application/json;charset=utf-8',
                 'Access-Control-Allow-Origin': '*'
               },
-              body: JSON.stringify({
-                id,
-                isCheck,
-                text: inputTask.value
-              })
+              body: JSON.stringify(allTasks[index])
             });
-            const result = await resp.json();
-            allTasks = result.data;
             localStorage.setItem('tasks', JSON.stringify(allTasks));
             render();
           }
@@ -109,15 +104,19 @@ const render = () => {
 }
 
 const deleteValue = async (index) => {
-  const id = allTasks[index].id
-  const resp = await fetch(`http://localhost:8000/deleteTask?id=${id}`, {
+  const id = allTasks[index]._id
+  const resp = await fetch(`http://localhost:8000/deleteTask?_id=${id}`, {
     method: 'DELETE'
   });
-  
-  const result = await resp.json();
-  allTasks = result.data;
-  localStorage.setItem('tasks', JSON.stringify(allTasks));
-  render();
+
+  const result = await resp;
+  if (result.status === 200) {
+    allTasks = allTasks.filter((item, index1) => (index1 !== index));
+    localStorage.setItem('tasks', JSON.stringify(allTasks));
+    render();
+  } else {
+    alert(`An error has occurred!`)
+  }
 };
 
 const onChangeCheckBox = (index) => {
@@ -137,3 +136,4 @@ const onClickButtonClear = () => {
   allTasks = [];
   render();
 }
+
